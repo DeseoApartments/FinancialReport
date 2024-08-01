@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .report-container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .stat-box {
+            flex: 1;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            margin: 0 10px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .graph-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .graph-section canvas {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-section {
+            margin: 40px 0;
+        }
+
+        .info-section table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .info-section th, .info-section td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .info-section th {
+            background-color: #e2e3e5;
+            text-align: left;
+        }
+
+        .info-section td {
+            text-align: right;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div class="report-container">
+        <h1>Financial Report for June 2024</h1>
+        <div class="stats-container">
+            <div class="stat-box">
+                <p>Notti prenotate</p>
+                <h2 id="notti-prenotate">20</h2>
+            </div>
+            <div class="stat-box">
+                <p>Soggiorno medio</p>
+                <h2 id="soggiorno-medio">3.5 notti</h2>
+            </div>
+            <div class="stat-box">
+                <p>Occupazione</p>
+                <h2 id="occupazione">65%</h2>
+            </div>
+            <div class="stat-box">
+                <p>Prezzo medio</p>
+                <h2 id="prezzo-medio">275,25€</h2>
+            </div>
+        </div>
+
+        <table id="report-table">
+            <thead>
+                <tr>
+                    <th>Property Name</th>
+                    <th>Location</th>
+                    <th>Gross Earnings</th>
+                    <th>Corrections</th>
+                    <th>Service Costs</th>
+                    <th>Net Earnings</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data will be populated here by JavaScript -->
+            </tbody>
+        </table>
+
+        <h2>Tassa di soggiorno</h2>
+        <p>Riscuotiamo le tasse di soggiorno dai tuoi ospiti e le inviamo alle autorità fiscali per tuo conto.</p>
+        <table id="tax-table">
+            <thead>
+                <tr>
+                    <th>Annuncio</th>
+                    <th>Totale (EUR)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Tax data will be populated here by JavaScript -->
+            </tbody>
+        </table>
+
+        <h2>Dettagli delle prenotazioni</h2>
+        <p>Panoramica relativa ai dati di prenotazione, alle notti prenotate e ai compensi ricevuti.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Codice di Conferma</th>
+                    <th>Data di inizio</th>
+                    <th>Data di fine</th>
+                    <th>Notti</th>
+                    <th>Ospite</th>
+                    <th>Costi del servizio Airbnb</th>
+                    <th>Guadagni lordi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>HMTPCKZ4QZ</td>
+                    <td>06/26/2024</td>
+                    <td>06/30/2024</td>
+                    <td>4</td>
+                    <td>Jaya Mudgil</td>
+                    <td>-183,00 €</td>
+                    <td>1000,00 €</td>
+                </tr>
+                <tr>
+                    <td>HMPFTZ5PWN</td>
+                    <td>06/23/2024</td>
+                    <td>06/25/2024</td>
+                    <td>2</td>
+                    <td>Chenqi Xie</td>
+                    <td>-82,35 €</td>
+                    <td>450,00 €</td>
+                </tr>
+                <tr>
+                    <td>HMHFF4HJ2X</td>
+                    <td>06/21/2024</td>
+                    <td>06/23/2024</td>
+                    <td>2</td>
+                    <td>Stephanie Karam</td>
+                    <td>-91,5 €</td>
+                    <td>500,00 €</td>
+                </tr>
+                <tr>
+                    <td>HMCTXSAHZY</td>
+                    <td>06/10/2024</td>
+                    <td>06/15/2024</td>
+                    <td>5</td>
+                    <td>Matthew Bishop</td>
+                    <td>-251,63 €</td>
+                    <td>1375,00 €</td>
+                </tr>
+                <tr>
+                    <td>HM3JHFJ5JC</td>
+                    <td>06/03/2024</td>
+                    <td>06/10/2024</td>
+                    <td>7</td>
+                    <td>Philipp Erfurth</td>
+                    <td>-307,44 €</td>
+                    <td>1680,00 €</td>
+                </tr>
+                <tr>
+                    <td>HM54C32YD3</td>
+                    <td>05/29/2024</td>
+                    <td>05/31/2024</td>
+                    <td>2</td>
+                    <td>Katya Davies</td>
+                    <td>-91,49 €</td>
+                    <td>500,00 €</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Sezione "Grafici" -->
+        <div class="graph-section">
+            <h2>Rendimenti e Tasso di Occupazione</h2>
+            <p>Rendimenti al netto dei costi del servizio Airbnb (YTD) e Tasso di Occupazione (YTD).</p>
+            <canvas id="earningsChart"></canvas>
+            <canvas id="occupancyChart"></canvas>
+        </div>
+
+        <div class="graph-section">
+            <h2>Analisi Trimestrale</h2>
+            <p>Totale vendite, compensi e correzioni per trimestre.</p>
+            <canvas id="quarterlyChart"></canvas>
+        </div>
+
+        <!-- Sezione "Informazioni aggiuntive" -->
+        <div class="info-section">
+            <h2>Informazioni aggiuntive</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Informazioni aggiuntive</th>
+                        <th>Valore</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Rendita media mensile lorda (YTD)</td>
+                        <td>3819,87 €</td>
+                    </tr>
+                    <tr>
+                        <td>Tasso di occupazione medio (YTD)</td>
+                        <td>55%</td>
+                    </tr>
+                    <tr>
+                        <td>Totale dei compensi lordi (YTD)</td>
+                        <td>22.919,20 €</td>
+                    </tr>
+                    <tr>
+                        <td>Mesi positivi</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td>Mesi negativi</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>Massimi Annuali</td>
+                        <td>Maggio 2024 | 4.726,33 €</td>
+                    </tr>
+                    <tr>
+                        <td>Minimi Annuali</td>
+                        <td>Gennaio 2024 | 982,84 €</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pulsante per scaricare il report in Excel -->
+        <button id="downloadExcel">Scarica Report Excel</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const properties = [
+                {
+                    name: 'Deseo Corte Battisti',
+                    location: 'Terrazza | Centro Storico',
+                    grossEarnings: 5505.00,
+                    corrections: -428.00,
+                    serviceCosts: -1007.41,
+                    tax: 251.25,
+                    nightsBooked: 20,
+                    averageStay: 3.5,
+                    occupancy: 65,
+                    averagePrice: 275.25
+                }
+            ];
+
+            const tableBody = document.querySelector('#report-table tbody');
+            const taxTableBody = document.querySelector('#tax-table tbody');
+
+            properties.forEach(property => {
+                const netEarnings = property.grossEarnings + property.corrections - property.serviceCosts;
+                const row = document.createElement('tr');
+
+                row.innerHTML = `
+                    <td>${property.name}</td>
+                    <td>${property.location}</td>
+                    <td>${property.grossEarnings.toFixed(2)} €</td>
+                    <td>${property.corrections.toFixed(2)} €</td>
+                    <td>${property.serviceCosts.toFixed(2)} €</td>
+                    <td>${netEarnings.toFixed(2)} €</td>
+                `;
+
+                tableBody.appendChild(row);
+
+                const taxRow = document.createElement('tr');
+
+                taxRow.innerHTML = `
+                    <td>${property.name}</td>
+                    <td>${property.tax.toFixed(2)} €</td>
+                `;
+
+                taxTableBody.appendChild(taxRow);
+
+                document.getElementById('notti-prenotate').textContent = property.nightsBooked;
+                document.getElementById('soggiorno-medio').textContent = property.averageStay + ' notti';
+                document.getElementById('occupazione').textContent = property.occupancy + '%';
+                document.getElementById('prezzo-medio').textContent = property.averagePrice.toFixed(2) + '€';
+            });
+
+            // Dati per i grafici
+            const earningsData = {
+                labels: ['gen', 'feb', 'mar', 'apr', 'mag', 'giu'],
+                datasets: [{
+                    label: 'Rendimenti al netto dei costi del servizio airbnb (YTD)',
+                    data: [1250, 1500, 3000, 3750, 4250, 4000],
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: true
+                }]
+            };
+
+            const occupancyData = {
+                labels: ['gen', 'feb', 'mar', 'apr', 'mag', 'giu'],
+                datasets: [{
+                    label: 'Tasso di Occupazione (YTD)',
+                    data: [32, 45, 52, 70, 65, 65],
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    fill: true
+                }]
+            };
+
+            const quarterlyData = {
+                labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                datasets: [
+                    {
+                        label: 'Totale vendite',
+                        data: [7135.20, 15784.00, 0, 0],
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Compensi',
+                        data: [4566.10, 12755.52, 0, 0],
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Correzioni',
+                        data: [0, -528.00, 0, 0],
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            };
+
+            const earningsChart = new Chart(
+                document.getElementById('earningsChart'),
+                {
+                    type: 'line',
+                    data: earningsData,
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top',
+                            },
+                        }
+                    }
+                }
+            );
+
+            const occupancyChart = new Chart(
+                document.getElementById('occupancyChart'),
+                {
+                    type: 'line',
+                    data: occupancyData,
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top',
+                            },
+                        }
+                    }
+                }
+            );
+
+            const quarterlyChart = new Chart(
+                document.getElementById('quarterlyChart'),
+                {
+                    type: 'bar',
+                    data: quarterlyData,
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed.y !== null) {
+                                            label += new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(context.parsed.y);
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(value);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            );
+
+            document.getElementById('downloadExcel').addEventListener('click', () => {
+                const wb = XLSX.utils.book_new();
+                
+                const ws1 = XLSX.utils.table_to_sheet(document.querySelector('#report-table'));
+                XLSX.utils.book_append_sheet(wb, ws1, 'Report');
+
+                const ws2 = XLSX.utils.table_to_sheet(document.querySelector('#tax-table'));
+                XLSX.utils.book_append_sheet(wb, ws2, 'Tax');
+
+                const ws3 = XLSX.utils.table_to_sheet(document.querySelector('.info-section table'));
+                XLSX.utils.book_append_sheet(wb, ws3, 'Informazioni aggiuntive');
+
+                XLSX.writeFile(wb, 'Financial_Report.xlsx');
+            });
+        });
+    </script>
+</body>
+</html>
